@@ -53,7 +53,7 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
         /// <summary>
         /// The current status of the sale.
         /// </summary>
-        public SaleStatus Status { get; set; } = SaleStatus.Active;
+        public SaleStatus Status { get; set; }
 
         /// <summary>
         /// Gets the date and time when the sale was created.
