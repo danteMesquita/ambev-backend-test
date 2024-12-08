@@ -53,6 +53,12 @@ public class Program
             builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
             var app = builder.Build();
+            if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")))
+            {
+                using var scope = app.Services.CreateScope();
+                using var ctx = scope.ServiceProvider.GetService<DefaultContext>();
+                ctx?.Database.Migrate();
+            }
             app.UseMiddleware<ValidationExceptionMiddleware>();
 
             if (app.Environment.IsDevelopment())
