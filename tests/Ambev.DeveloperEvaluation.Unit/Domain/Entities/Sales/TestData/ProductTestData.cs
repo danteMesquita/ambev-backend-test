@@ -15,7 +15,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.Sales.TestData
         private static readonly Faker<Product> ProductFaker = new Faker<Product>()
             .RuleFor(p => p.Id, f => Guid.NewGuid())
             .RuleFor(p => p.DiscountTier, f => f.PickRandom<DiscountTier>())
-            .RuleFor(p => p.Ammount, f => f.Random.Number(1, 100))
+            .RuleFor(p => p.Amount, f => f.Random.Number(1, 100))
             .RuleFor(p => p.UnitPrice, f => f.Finance.Amount(10, 1000));
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.Sales.TestData
         public static Product GenerateProductWithInvalidAmmount()
         {
             var product = GenerateValidProduct();
-            product.Ammount = 0; // Invalid value
+            product.Amount = 0; // Invalid value
             return product;
         }
     }

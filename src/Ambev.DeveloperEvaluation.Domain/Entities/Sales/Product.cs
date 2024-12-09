@@ -6,10 +6,15 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
     public class Product : BaseEntity
     {
         /// <summary>
+        /// Gets or sets the name of the product available or purchased.
+        /// </summary>
+        public string Name { get; set; } = null!;
+
+        /// <summary>
         /// Gets or sets the quantity of the product available or purchased.
         /// Represents the total number of units.
         /// </summary>
-        public int Ammount { get; set; }
+        public int Amount { get; set; }
 
         /// <summary>
         /// Gets or sets the unit price of the product.

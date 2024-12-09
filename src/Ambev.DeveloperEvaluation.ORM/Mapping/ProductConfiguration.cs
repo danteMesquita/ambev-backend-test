@@ -18,7 +18,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
                 .HasMaxLength(20)
                 .IsRequired();
 
-            builder.Property(p => p.Ammount)
+            builder.Property(p => p.Amount)
                 .IsRequired();
 
             builder.Property(p => p.UnitPrice)
