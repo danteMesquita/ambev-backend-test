@@ -41,18 +41,24 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.Sales
             Assert.Equal(SaleStatus.Cancelled, sale.Status);
         }
 
-        /// <summary>
-        /// Tests that the total amount is correctly calculated for a sale with valid products.
-        /// </summary>
         [Fact(DisplayName = "Total amount should match the sum of product prices times their quantities")]
         public void Given_ValidSale_When_CalculatingTotalAmount_Then_ShouldMatchSumOfProducts()
         {
             // Arrange
             var sale = SaleTestData.GenerateValidSale();
-            sale.Products = ProductTestData.GenerateValidProducts(3);
-            sale.AmountByItem = sale.Products.ToDictionary(p => p.Id, _ => 2); // Each product has a quantity of 2
+            var products = ProductTestData.GenerateValidProducts(3); // Gera 3 produtos
+            sale.Products = products.Select(p => new SaleProduct
+            {
+                SaleId = sale.Id,
+                ProductId = p.Id,
+                Product = p,
+                Quantity = 2, // Cada produto tem uma quantidade de 2
+                TotalPrice = p.UnitPrice * 2 // Calcula o preço total por produto
+            }).ToList();
 
-            var expectedTotal = sale.Products.Sum(p => p.UnitPrice * sale.AmountByItem[p.Id]);
+            sale.AmountByItem = products.ToDictionary(p => p.Id, _ => 2); // Quantidade por produto é 2
+
+            var expectedTotal = sale.Products.Sum(sp => sp.Product.UnitPrice * sale.AmountByItem[sp.ProductId]);
 
             // Act
             sale.CalculateTotalAmount();
@@ -60,6 +66,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.Sales
             // Assert
             Assert.Equal(expectedTotal, sale.TotalAmount);
         }
+
 
         /// <summary>
         /// Tests that validation passes for a sale with valid data.
@@ -87,13 +94,13 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.Sales
             // Arrange
             var sale = new Sale
             {
-                SaleNumber = Guid.Empty, // Invalid: should not be empty
-                CustomerID = Guid.Empty, // Invalid: should not be empty
-                TotalAmount = -100, // Invalid: negative value
-                BranchId = Guid.Empty, // Invalid: should not be empty
-                Products = null, // Invalid: products cannot be null
-                AmountByItem = null, // Invalid: mapping cannot be null
-                Status = SaleStatus.Unknown // Invalid: cannot be Unknown
+                SaleNumber = Guid.Empty,
+                CustomerID = Guid.Empty,
+                TotalAmount = -100, 
+                BranchId = Guid.Empty,
+                Products = null, 
+                AmountByItem = null,
+                Status = SaleStatus.Unknown 
             };
 
             // Act

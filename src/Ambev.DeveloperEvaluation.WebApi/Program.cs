@@ -55,9 +55,9 @@ public class Program
             var app = builder.Build();
             if (!string.IsNullOrEmpty(Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")))
             {
-                using var scope = app.Services.CreateScope();
-                using var ctx = scope.ServiceProvider.GetService<DefaultContext>();
-                ctx?.Database.Migrate();
+                using var myScope = app.Services.CreateScope();
+                using var context = myScope.ServiceProvider.GetService<DefaultContext>();
+                context?.Database.Migrate();
             }
             app.UseMiddleware<ValidationExceptionMiddleware>();
 

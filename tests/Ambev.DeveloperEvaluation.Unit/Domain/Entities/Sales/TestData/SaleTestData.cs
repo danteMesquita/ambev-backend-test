@@ -19,12 +19,23 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.Sales.TestData
             .RuleFor(s => s.CustomerID, f => Guid.NewGuid())
             .RuleFor(s => s.TotalAmount, f => f.Finance.Amount(50, 5000))
             .RuleFor(s => s.BranchId, f => Guid.NewGuid())
-            .RuleFor(s => s.Products, f => ProductTestData.GenerateValidProducts(f.Random.Number(1, 5)))
+             .RuleFor(s => s.Products, f =>
+             {
+                 var products = ProductTestData.GenerateValidProducts(f.Random.Number(1, 5));
+                 return products.Select(p => new SaleProduct
+                 {
+                     SaleId = Guid.NewGuid(),
+                     ProductId = p.Id,
+                     Product = p,
+                     Quantity = f.Random.Number(1, 10),
+                     TotalPrice = p.UnitPrice * f.Random.Number(1, 10)
+                 }).ToList();
+             })
             .RuleFor(s => s.AmountByItem, (f, s) =>
             {
-                return s.Products?.ToDictionary(
-                    p => p.Id,
-                    _ => f.Random.Number(1, 10)
+                return s.Products.ToDictionary(
+                    sp => sp.ProductId,
+                    sp => sp.Quantity
                 );
             })
             .RuleFor(s => s.Status, f => f.PickRandom<SaleStatus>());
@@ -68,7 +79,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.Sales.TestData
         public static Sale GenerateSaleWithNoProducts()
         {
             var sale = GenerateValidSale();
-            sale.Products = Enumerable.Empty<Product>();
+            sale.Products = new List<SaleProduct>(); // Lista vazia de SaleProduct
             sale.AmountByItem = new Dictionary<Guid, int>();
             return sale;
         }

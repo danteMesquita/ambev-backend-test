@@ -28,7 +28,7 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
                 .IsRequired() 
                 .OnDelete(DeleteBehavior.Restrict);
 
-            builder.Ignore(s => s.Products);
+            //builder.Ignore(s => s.Products);
             builder.Ignore(s => s.AmountByItem);
 
             builder.Property(s => s.CreatedAt).IsRequired();

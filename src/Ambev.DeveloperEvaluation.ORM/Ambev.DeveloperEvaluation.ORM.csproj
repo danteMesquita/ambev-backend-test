@@ -21,4 +21,12 @@
 	<ItemGroup>
 		<ProjectReference Include="..\Ambev.DeveloperEvaluation.Domain\Ambev.DeveloperEvaluation.Domain.csproj" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Seeds\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <None Update="Seeds\InitialSeed.sql">
+	    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
 </Project>

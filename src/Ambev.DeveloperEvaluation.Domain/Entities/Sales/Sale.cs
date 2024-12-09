@@ -41,9 +41,9 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
         public Guid BranchId { get; set; }
 
         /// <summary>
-        /// The collection of products involved in the sale.
+        /// The products associated with the sale.
         /// </summary>
-        public IEnumerable<Product>? Products { get; set; }
+        public ICollection<SaleProduct> Products { get; set; } = new List<SaleProduct>();
 
         /// <summary>
         /// A mapping of product IDs to their respective quantities.
@@ -101,8 +101,8 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
                 throw new InvalidOperationException("Products and AmountByItem must be set before calculating the total amount.");
 
             TotalAmount = Products
-                .Where(p => AmountByItem.ContainsKey(p.Id))
-                .Sum(p => p.UnitPrice * AmountByItem[p.Id]);
+                .Where(sp => AmountByItem.ContainsKey(sp.ProductId))
+                .Sum(sp => sp.Product.UnitPrice * AmountByItem[sp.ProductId]);
         }
 
         /// <summary>
