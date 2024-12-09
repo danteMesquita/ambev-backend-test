@@ -4,8 +4,15 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Ambev.DeveloperEvaluation.ORM.Mapping
 {
+    /// <summary>
+    /// Configuration for the Sale entity in the database.
+    /// </summary>
     public class SaleConfiguration : IEntityTypeConfiguration<Sale>
     {
+        /// <summary>
+        /// Configures the Sale entity and its properties, relationships, and constraints.
+        /// </summary>
+        /// <param name="builder">The builder used to configure the Sale entity.</param>
         public void Configure(EntityTypeBuilder<Sale> builder)
         {
             builder.ToTable("Sales");

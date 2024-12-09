@@ -21,6 +21,11 @@
         public Guid ProductId { get; set; }
 
         /// <summary>
+        /// Gets or sets the name of the product.
+        /// </summary>
+        public string ProductName { get; set; } = null!;
+
+        /// <summary>
         /// The product entity.
         /// </summary>
         public Product Product { get; set; } = null!;
@@ -34,5 +39,16 @@
         /// The total price for this product in the sale.
         /// </summary>
         public decimal TotalPrice { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date and time when the product was created.
+        /// </summary>
+        public DateTime CreatedAt { get; set; }
+
+        /// <summary>
+        /// Gets or sets the date and time of the last update to the product.
+        /// This property is optional and may be null if no updates have been made.
+        /// </summary>
+        public DateTime? UpdatedAt { get; set; }
     }
 }
