@@ -42,5 +42,11 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
         /// Gets or sets the quantity of the product.
         /// </summary>
         public int Amount { get; set; }
+
+        /// <summary>
+        /// Gets or sets the unit price of the product available or purchased.
+        /// </summary>
+        public decimal UnitPrice { get; set; }
+
     }
 }

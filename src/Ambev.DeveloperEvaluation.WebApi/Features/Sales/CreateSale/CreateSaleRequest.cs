@@ -41,5 +41,11 @@
         /// Gets or sets the quantity of the product.
         /// </summary>
         public int Amount { get; set; }
+
+
+        /// <summary>
+        /// Gets or sets the quantity of the product.
+        /// </summary>
+        public decimal UnitPrice { get; set; }
     }
 }

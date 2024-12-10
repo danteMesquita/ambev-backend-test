@@ -1,8 +1,10 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Common;
-using Ambev.DeveloperEvaluation.Domain.Enums.Sales;
 
 namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
 {
+    /// <summary>
+    /// Represents a product entity.
+    /// </summary>
     public class Product : BaseEntity
     {
         /// <summary>

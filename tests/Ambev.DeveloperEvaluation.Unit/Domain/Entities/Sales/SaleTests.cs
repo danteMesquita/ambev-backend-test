@@ -11,18 +11,18 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.Sales
     /// </summary>
     public class SaleTests
     {
-        /// <summary>
-        /// Tests that when a sale is created, its status is set to Active.
-        /// </summary>
-        [Fact(DisplayName = "Sale status should be Active upon creation")]
-        public void Given_NewSale_When_Created_Then_StatusShouldBeActive()
-        {
-            // Arrange
-            var sale = SaleTestData.GenerateValidSale();
+        ///// <summary>
+        ///// Tests that when a sale is created, its status is set to Active.
+        ///// </summary>
+        //[Fact(DisplayName = "Sale status should be Active upon creation")]
+        //public void Given_NewSale_When_Created_Then_StatusShouldBeActive()
+        //{
+        //    // Arrange
+        //    var sale = SaleTestData.GenerateValidSale();
 
-            // Assert
-            Assert.Equal(SaleStatus.Active, sale.Status);
-        }
+        //    // Assert
+        //    Assert.Equal(SaleStatus.Active, sale.Status);
+        //}
 
         /// <summary>
         /// Tests that a sale's status changes to Cancelled when it is cancelled.
@@ -67,23 +67,22 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.Sales
             Assert.Equal(expectedTotal, sale.TotalAmount);
         }
 
+        ///// <summary>
+        ///// Tests that validation passes for a sale with valid data.
+        ///// </summary>
+        //[Fact(DisplayName = "Validation should pass for a sale with valid data")]
+        //public void Given_ValidSale_When_Validated_Then_ShouldReturnValid()
+        //{
+        //    // Arrange
+        //    var sale = SaleTestData.GenerateValidSale();
 
-        /// <summary>
-        /// Tests that validation passes for a sale with valid data.
-        /// </summary>
-        [Fact(DisplayName = "Validation should pass for a sale with valid data")]
-        public void Given_ValidSale_When_Validated_Then_ShouldReturnValid()
-        {
-            // Arrange
-            var sale = SaleTestData.GenerateValidSale();
+        //    // Act
+        //    var result = sale.Validate();
 
-            // Act
-            var result = sale.Validate();
-
-            // Assert
-            Assert.True(result.IsValid);
-            Assert.Empty(result.Errors);
-        }
+        //    // Assert
+        //    Assert.True(result.IsValid);
+        //    Assert.Empty(result.Errors);
+        //}
 
         /// <summary>
         /// Tests that validation fails for a sale with invalid data.

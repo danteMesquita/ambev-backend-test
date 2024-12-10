@@ -1,4 +1,6 @@
-﻿namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
+﻿using Ambev.DeveloperEvaluation.Domain.Enums.Sales;
+
+namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
 {
     /// <summary>
     /// Represents the association between a sale and a product.
@@ -13,7 +15,7 @@
         /// <summary>
         /// The sale entity.
         /// </summary>
-        public Sale Sale { get; set; } = null!;
+        public Sale? Sale { get; set; } = null!;
 
         /// <summary>
         /// The ID of the product.
@@ -41,6 +43,11 @@
         public decimal TotalPrice { get; set; }
 
         /// <summary>
+        /// Gets or sets the discount tier.
+        /// </summary>
+        public DiscountTier DiscountTier { get; set; }
+
+        /// <summary>
         /// Gets or sets the date and time when the product was created.
         /// </summary>
         public DateTime CreatedAt { get; set; }
@@ -50,5 +57,41 @@
         /// This property is optional and may be null if no updates have been made.
         /// </summary>
         public DateTime? UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Calculates the total price for the sale product.
+        /// </summary>
+        public void CalculateTotalPrice(decimal unitPrice)
+        {
+            TotalPrice = Quantity * unitPrice;
+        }
+
+        /// <summary>
+        /// Determines the discount tier based on the quantity.
+        /// </summary>
+        public void DetermineDiscountTier()
+        {
+            if (Quantity >= 10 && Quantity <= 20)
+            {
+                DiscountTier = DiscountTier.TwentyPercent;
+            }
+            else if (Quantity >= 4)
+            {
+                DiscountTier = DiscountTier.TenPercent;
+            }
+            else
+            {
+                DiscountTier = DiscountTier.NoDiscount;
+            }
+        }
+
+        /// <summary>
+        /// Applies the discount tier to the total price.
+        /// </summary>
+        public void ApplyDiscountTierOnTotalPrice()
+        {
+            var discountMultiplier = 1 - ((decimal)DiscountTier / 100);
+            TotalPrice *= discountMultiplier;
+        }
     }
 }

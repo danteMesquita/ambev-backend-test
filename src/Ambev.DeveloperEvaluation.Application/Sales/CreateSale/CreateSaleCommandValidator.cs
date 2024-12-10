@@ -21,22 +21,18 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
         /// </remarks>
         public CreateSaleCommandValidator()
         {
-            // CustomerID must not be empty.
             RuleFor(sale => sale.CustomerID)
                 .NotEmpty()
                 .WithMessage("CustomerID is required.");
 
-            // BranchId must not be empty.
             RuleFor(sale => sale.BranchId)
                 .NotEmpty()
                 .WithMessage("BranchId is required.");
 
-            // Products list must not be empty.
             RuleFor(sale => sale.Products)
                 .NotEmpty()
                 .WithMessage("At least one product is required in the sale.");
 
-            // Each product in the Products list must have a valid name and quantity.
             RuleForEach(sale => sale.Products).ChildRules(product =>
             {
                 product.RuleFor(p => p.Name)
@@ -45,7 +41,9 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
 
                 product.RuleFor(p => p.Amount)
                     .GreaterThan(0)
-                    .WithMessage("Product quantity must be greater than zero.");
+                    .WithMessage("Product quantity must be greater than zero.")
+                    .LessThanOrEqualTo(20)
+                    .WithMessage("Product quantity must not exceed 20.");
             });
         }
     }

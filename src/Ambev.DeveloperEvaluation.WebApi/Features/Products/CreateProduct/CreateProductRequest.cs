@@ -23,11 +23,5 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.CreateProduct
         /// Represents the cost of a single unit in decimal format.
         /// </summary>
         public decimal UnitPrice { get; set; }
-
-        /// <summary>
-        /// Gets or sets the discount tier for the product.
-        /// Determines the discount category applied to this product.
-        /// </summary>
-        public DiscountTier DiscountTier { get; set; }
     }
 }

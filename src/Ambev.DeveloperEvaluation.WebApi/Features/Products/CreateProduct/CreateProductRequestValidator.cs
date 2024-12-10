@@ -23,10 +23,6 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Products.CreateProduct
             RuleFor(x => x.UnitPrice)
                 .GreaterThan(0)
                 .WithMessage("Unit price must be greater than zero");
-
-            RuleFor(x => x.DiscountTier)
-                .IsInEnum()
-                .WithMessage("Invalid discount tier value");
         }
     }
 }

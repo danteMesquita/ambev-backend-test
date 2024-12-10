@@ -12,17 +12,14 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
         /// </summary>
         public CreateSaleRequestValidator()
         {
-            // Validate that CustomerID is not empty
             RuleFor(request => request.CustomerID)
                 .NotEmpty()
                 .WithMessage("CustomerID is required.");
 
-            // Validate that BranchId is not empty
             RuleFor(request => request.BranchId)
                 .NotEmpty()
                 .WithMessage("BranchId is required.");
 
-            // Validate that Products list is not empty
             RuleFor(request => request.Products)
                 .NotEmpty()
                 .WithMessage("At least one product is required in the sale.")
@@ -44,20 +41,19 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales.CreateSale
         /// </summary>
         public SaleProductRequestValidator()
         {
-            // Validate that Product Name is not empty
             RuleFor(product => product.Id)
                 .NotEmpty()
                 .WithMessage("Product id is required.");
 
-            // Validate that Product Name is not empty
             RuleFor(product => product.Name)
                 .NotEmpty()
                 .WithMessage("Product name is required.");
 
-            // Validate that Amount is greater than zero
             RuleFor(product => product.Amount)
                 .GreaterThan(0)
-                .WithMessage("Product amount must be greater than zero.");
+                .WithMessage("Product amount must be greater than zero.")
+                .LessThanOrEqualTo(20)
+                .WithMessage("Product amount must not exceed 20.");
         }
     }
 }

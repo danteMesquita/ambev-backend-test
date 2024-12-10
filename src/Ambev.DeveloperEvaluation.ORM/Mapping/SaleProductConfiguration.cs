@@ -1,4 +1,5 @@
 ﻿using Ambev.DeveloperEvaluation.Domain.Entities.Sales;
+using Ambev.DeveloperEvaluation.Domain.Enums.Sales;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -30,19 +31,25 @@ namespace Ambev.DeveloperEvaluation.ORM.Mapping
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Property(sp => sp.ProductName)
-                   .IsRequired()
-                   .HasMaxLength(100);
+                .IsRequired()
+                .HasMaxLength(100);
 
             builder.Property(sp => sp.Quantity).IsRequired();
             builder.Property(sp => sp.TotalPrice)
                 .HasColumnType("decimal(18,2)")
                 .IsRequired();
 
+            builder.Property(sp => sp.DiscountTier)
+                .HasConversion<string>() 
+                .HasMaxLength(50)
+                .HasDefaultValue(DiscountTier.NoDiscount)
+                .IsRequired();
+
             builder.Property(sp => sp.CreatedAt)
-                   .IsRequired();
+               .IsRequired();
 
             builder.Property(sp => sp.UpdatedAt)
-                   .IsRequired(false);
+              .IsRequired(false);
         }
     }
 }
