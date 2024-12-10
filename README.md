@@ -11,7 +11,7 @@ Before you begin, ensure you have the following installed on your machine:
 
 - [Docker](https://www.docker.com/)
 - [Docker Compose](https://docs.docker.com/compose/)
-- [.NET SDK 6.0+](https://dotnet.microsoft.com/download)
+- [.NET SDK 8.0+](https://dotnet.microsoft.com/download)
 - An IDE or editor of your choice (e.g., Visual Studio, VS Code)
 
 ---
