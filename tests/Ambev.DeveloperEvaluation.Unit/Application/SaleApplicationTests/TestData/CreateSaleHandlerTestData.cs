@@ -3,7 +3,7 @@ using Ambev.DeveloperEvaluation.Domain.Entities.Sales;
 using Ambev.DeveloperEvaluation.Domain.Enums.Sales;
 using Bogus;
 
-namespace Ambev.DeveloperEvaluation.Unit.Application.TestData
+namespace Ambev.DeveloperEvaluation.Unit.Application.SaleApplicationTests.TestData
 {
     /// <summary>
     /// Provides test data for CreateSaleHandler unit tests.
@@ -36,8 +36,8 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData
             return new Faker<SaleProductCommand>()
                 .RuleFor(p => p.Id, f => Guid.NewGuid())
                 .RuleFor(p => p.Name, f => f.Commerce.ProductName())
-                .RuleFor(p => p.Amount, f => f.Random.Int(1, 20)) 
-                .RuleFor(p => p.UnitPrice, f => f.Random.Decimal(10, 100)) 
+                .RuleFor(p => p.Amount, f => f.Random.Int(1, 20))
+                .RuleFor(p => p.UnitPrice, f => f.Random.Decimal(10, 100))
                 .Generate(amount);
         }
 
@@ -49,9 +49,9 @@ namespace Ambev.DeveloperEvaluation.Unit.Application.TestData
         {
             return new CreateSaleCommand
             {
-                CustomerID = Guid.Empty, 
-                BranchId = Guid.Empty,  
-                Products = new List<SaleProductCommand>() 
+                CustomerID = Guid.Empty,
+                BranchId = Guid.Empty,
+                Products = new List<SaleProductCommand>()
             };
         }
 

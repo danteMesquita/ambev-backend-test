@@ -62,6 +62,14 @@ namespace Ambev.DeveloperEvaluation.Application.Sales.CreateSale
                 DiscountTier = product.DiscountTier.ToString()
             }).ToList();
         }
+
+        /// <summary>
+        /// AutoMapper, entityFMWK constructor
+        /// </summary>
+        public CreateSaleResult()
+        {
+            
+        }
     }
 
     /// <summary>

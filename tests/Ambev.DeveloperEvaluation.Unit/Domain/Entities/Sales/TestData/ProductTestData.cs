@@ -17,15 +17,6 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.Sales.TestData
             .RuleFor(p => p.UnitPrice, f => f.Finance.Amount(10, 1000));
 
         /// <summary>
-        /// Generates a valid Product entity with randomized data.
-        /// </summary>
-        /// <returns>A valid Product entity.</returns>
-        public static Product GenerateValidProduct()
-        {
-            return ProductFaker.Generate();
-        }
-
-        /// <summary>
         /// Generates a list of valid Product entities.
         /// </summary>
         /// <param name="count">The number of Product entities to generate.</param>
@@ -36,26 +27,24 @@ namespace Ambev.DeveloperEvaluation.Unit.Domain.Entities.Sales.TestData
         }
 
         /// <summary>
-        /// Generates a Product entity with an invalid UnitPrice (negative value).
-        /// Useful for testing validation errors.
+        /// Generates a list of valid SaleProduct entities based on a given list of Products.
         /// </summary>
-        /// <returns>A Product entity with an invalid UnitPrice.</returns>
-        public static Product GenerateProductWithInvalidUnitPrice()
+        /// <param name="products">The list of Product entities to base the SaleProduct generation on.</param>
+        /// <param name="quantity">The quantity to assign to each SaleProduct.</param>
+        /// <returns>A list of valid SaleProduct entities.</returns>
+        public static IEnumerable<SaleProduct> GenerateValidSaleProducts(IEnumerable<Product> products, int quantity)
         {
-            var product = GenerateValidProduct();
-            product.UnitPrice = -10; // Invalid value
-            return product;
-        }
-
-        /// <summary>
-        /// Generates a Product entity with an invalid Ammount (zero).
-        /// Useful for testing validation errors.
-        /// </summary>
-        /// <returns>A Product entity with an invalid Ammount.</returns>
-        public static Product GenerateProductWithInvalidAmmount()
-        {
-            var product = GenerateValidProduct();
-            return product;
+            return products.Select(product => new SaleProduct
+            {
+                SaleId = Guid.NewGuid(),
+                ProductId = product.Id,
+                Product = product,
+                Quantity = quantity,
+                TotalPrice = product.UnitPrice * quantity,
+                ProductName = product.Name ?? "Default Product Name",
+                CreatedAt = DateTime.UtcNow,
+                DiscountTier = DiscountTier.NoDiscount
+            });
         }
     }
 }

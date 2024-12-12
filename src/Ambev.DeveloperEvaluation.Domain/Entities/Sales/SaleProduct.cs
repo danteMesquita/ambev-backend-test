@@ -93,5 +93,13 @@ namespace Ambev.DeveloperEvaluation.Domain.Entities.Sales
             var discountMultiplier = 1 - ((decimal)DiscountTier / 100);
             TotalPrice *= discountMultiplier;
         }
+
+        /// <summary>
+        /// Constructor for  automapper, entity, etc..
+        /// </summary>
+        public SaleProduct()
+        {
+            
+        }
     }
 }

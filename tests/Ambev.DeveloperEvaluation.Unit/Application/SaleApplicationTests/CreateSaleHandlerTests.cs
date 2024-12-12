@@ -2,7 +2,7 @@
 using Ambev.DeveloperEvaluation.Domain.Entities.Sales;
 using Ambev.DeveloperEvaluation.Domain.Enums.Sales;
 using Ambev.DeveloperEvaluation.Domain.Repositories;
-using Ambev.DeveloperEvaluation.Unit.Application.TestData;
+using Ambev.DeveloperEvaluation.Unit.Application.SaleApplicationTests.TestData;
 using AutoMapper;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using NSubstitute;
 using Xunit;
 
-namespace Ambev.DeveloperEvaluation.Unit.Application
+namespace Ambev.DeveloperEvaluation.Unit.Application.SaleApplicationTests
 {
     /// <summary>
     /// Contains unit tests for the <see cref="CreateSaleHandler"/> class.
@@ -98,7 +98,7 @@ namespace Ambev.DeveloperEvaluation.Unit.Application
 
             await transaction.Received(1).CommitAsync(Arg.Any<CancellationToken>());
         }
-        
+
         [Fact(DisplayName = "Given valid sale data When creating sale Then commits transaction")]
         public async Task Handle_ValidRequest_CommitsTransaction()
         {
