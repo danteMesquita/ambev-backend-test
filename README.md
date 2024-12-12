@@ -1,86 +1,113 @@
-# Developer Evaluation Project
 
-`READ CAREFULLY`
+# Ambev Developer Evaluation Project
 
-## Instructions
-**The test below will have up to 7 calendar days to be delivered from the date of receipt of this manual.**
+This repository contains the Ambev Developer Evaluation project. The solution is designed with a multi-layered architecture and leverages multiple services such as PostgreSQL, MongoDB, and Redis. This guide will walk you through setting up the environment using Docker to test and run the application locally.
 
-- The code must be versioned in a public Github repository and a link must be sent for evaluation once completed
-- Upload this template to your repository and start working from it
-- Read the instructions carefully and make sure all requirements are being addressed
-- The repository must provide instructions on how to configure, execute and test the project
-- Documentation and overall organization will also be taken into consideration
+---
 
-## Use Case
-**You are a developer on the DeveloperStore team. Now we need to implement the API prototypes.**
+## Prerequisites
 
-As we work with `DDD`, to reference entities from other domains, we use the `External Identities` pattern with denormalization of entity descriptions.
+Before you begin, ensure you have the following installed on your machine:
 
-Therefore, you will write an API (complete CRUD) that handles sales records. The API needs to be able to inform:
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [.NET SDK 8.0+](https://dotnet.microsoft.com/download)
+- An IDE or editor of your choice (e.g., Visual Studio, VS Code)
 
-* Sale number
-* Date when the sale was made
-* Customer
-* Total sale amount
-* Branch where the sale was made
-* Products
-* Quantities
-* Unit prices
-* Discounts
-* Total amount for each item
-* Cancelled/Not Cancelled
+---
 
-It's not mandatory, but it would be a differential to build code for publishing events of:
-* SaleCreated
-* SaleModified
-* SaleCancelled
-* ItemCancelled
+## Services Overview
 
-If you write the code, **it's not required** to actually publish to any Message Broker. You can log a message in the application log or however you find most convenient.
+The application uses the following services:
 
-### Business Rules
+- **Web API**: Main entry point for the application.
+- **PostgreSQL**: Relational database for data storage.
+- **MongoDB**: NoSQL database for handling notifications.
+- **Redis**: Caching system for improved performance.
 
-* Purchases above 4 identical items have a 10% discount
-* Purchases between 10 and 20 identical items have a 20% discount
-* It's not possible to sell above 20 identical items
-* Purchases below 4 items cannot have a discount
+---
 
-These business rules define quantity-based discounting tiers and limitations:
+## Setting Up the Environment
 
-1. Discount Tiers:
-   - 4+ items: 10% discount
-   - 10-20 items: 20% discount
+### 1. Clone the Repository
+```bash
+git clone https://github.com/your-repo-name.git
+cd your-repo-name
+```
 
-2. Restrictions:
-   - Maximum limit: 20 items per product
-   - No discounts allowed for quantities below 4 items
+### 2. Build and Run the Environment with Docker Compose
 
-## Overview
-This section provides a high-level overview of the project and the various skills and competencies it aims to assess for developer candidates. 
+Use the `docker-compose.yml` file included in the repository to spin up the required services.
 
-See [Overview](/.doc/overview.md)
+```bash
+docker-compose up --build
+```
 
-## Tech Stack
-This section lists the key technologies used in the project, including the backend, testing, frontend, and database components. 
+This command will:
+- Build the `ambev.developerevaluation.webapi` image.
+- Start all services defined in `docker-compose.yml`:
+  - **Web API**: Available on ports `8080` (HTTP) and `8081` (HTTPS).
+  - **PostgreSQL**: Available on port `5432`.
+  - **MongoDB**: Available on port `27017`.
+  - **Redis**: Available on port `6379`.
 
-See [Tech Stack](/.doc/tech-stack.md)
+## Troubleshooting
 
-## Frameworks
-This section outlines the frameworks and libraries that are leveraged in the project to enhance development productivity and maintainability. 
+### Common Issues
+1. **Port Conflicts**: If any service fails to start due to port conflicts, check if the ports (`8080`, `8081`, `5432`, `27017`, `6379`) are already in use.
+   - Update the `docker-compose.yml` file with alternative ports and rebuild the containers.
 
-See [Frameworks](/.doc/frameworks.md)
+2. **Permission Issues**: Ensure Docker has the necessary permissions to access the paths defined in the `volumes` section.
 
-<!-- 
-## API Structure
-This section includes links to the detailed documentation for the different API resources:
-- [API General](./docs/general-api.md)
-- [Products API](/.doc/products-api.md)
-- [Carts API](/.doc/carts-api.md)
-- [Users API](/.doc/users-api.md)
-- [Auth API](/.doc/auth-api.md)
--->
+3. **Connection Issues**:
+   - Verify that all containers are running using `docker ps`.
+   - Check the logs of specific containers using:
+     ```bash
+     docker logs <container_name>
+     ```
 
-## Project Structure
-This section describes the overall structure and organization of the project files and directories. 
+---
 
-See [Project Structure](/.doc/project-structure.md)
+## Running Tests
+
+The project includes a comprehensive suite of tests. To execute the tests, use the following command:
+
+```bash
+dotnet test
+```
+
+Ensure all services are running, as some tests might rely on the database or cache.
+
+---
+
+## Stopping and Cleaning Up
+
+To stop all containers:
+
+```bash
+docker-compose down
+```
+
+To clean up unused containers, images, volumes, and networks:
+
+```bash
+docker system prune -a
+```
+
+---
+
+## Contribution Guide
+
+1. Fork the repository.
+2. Create a feature branch.
+3. Submit a pull request with a clear description of your changes.
+
+---
+
+## Contact
+
+For any questions or issues, please reach out to the repository maintainer.
+
+---
+
+Happy Coding! 🚀
