@@ -60,6 +60,8 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
             });
         }
 
+
+
         /// <summary>
         /// Retrieves a sale by its ID
         /// </summary>
@@ -72,7 +74,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetSale([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            var request = new GetSaleRequest { Id = id };
+            var request = new GetSaleRequest(Guid.NewGuid());
             var validator = new GetSaleRequestValidator();
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
 
@@ -81,13 +83,14 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
 
             var command = _mapper.Map<GetSaleCommand>(request.Id);
             var response = await _mediator.Send(command, cancellationToken);
-
-            return Ok(new ApiResponseWithData<GetSaleResponse>
+            var responseData = _mapper.Map<GetSaleResponse>(response);
+            ApiResponseWithData<GetSaleResponse> responseResult = new ApiResponseWithData<GetSaleResponse>
             {
                 Success = true,
                 Message = "Sale retrieved successfully",
-                Data = _mapper.Map<GetSaleResponse>(response)
-            });
+                Data = responseData
+            };
+            return Ok(responseResult);
         }
 
         /// <summary>
@@ -102,7 +105,7 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Sales
         [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
         public async Task<IActionResult> DeleteSale([FromRoute] Guid id, CancellationToken cancellationToken)
         {
-            var request = new DeleteSaleRequest { Id = id };
+            var request = new DeleteSaleRequest(id);
             var validator = new DeleteSaleRequestValidator();
             var validationResult = await validator.ValidateAsync(request, cancellationToken);
 

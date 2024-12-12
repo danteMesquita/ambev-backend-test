@@ -9,5 +9,10 @@
         /// The unique identifier of the sale to delete
         /// </summary>
         public Guid Id { get; set; }
+
+        public DeleteSaleRequest(Guid id)
+        {
+            Id = id;
+        }
     }
 }
