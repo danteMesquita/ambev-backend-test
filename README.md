@@ -51,26 +51,6 @@ This command will:
   - **MongoDB**: Available on port `27017`.
   - **Redis**: Available on port `6379`.
 
-### 3. Verify the Services
-- **Web API**: Access the Swagger documentation at [http://localhost:8080/swagger](http://localhost:8080/swagger).
-- **PostgreSQL**: Connect to the database using a tool like DBeaver or pgAdmin with the following credentials:
-  - Host: `localhost`
-  - Port: `5432`
-  - Database: `developer_evaluation`
-  - Username: `developer`
-  - Password: `ev@luAt10n`
-- **MongoDB**: Connect using a MongoDB client:
-  - Host: `localhost`
-  - Port: `27017`
-  - Username: `developer`
-  - Password: `ev@luAt10n`
-- **Redis**: Use a Redis client to connect:
-  - Host: `localhost`
-  - Port: `6379`
-  - Password: `ev@luAt10n`
-
----
-
 ## Troubleshooting
 
 ### Common Issues
@@ -113,17 +93,6 @@ To clean up unused containers, images, volumes, and networks:
 ```bash
 docker system prune -a
 ```
-
----
-
-## Additional Notes
-
-### User Secrets and HTTPS Certificates
-Ensure that your local environment has:
-- User Secrets stored in `${APPDATA}/Microsoft/UserSecrets`.
-- HTTPS development certificates stored in `${APPDATA}/ASP.NET/Https`.
-
-For more details, visit the [.NET Development Environment documentation](https://learn.microsoft.com/en-us/aspnet/core/security/?view=aspnetcore-6.0).
 
 ---
 
