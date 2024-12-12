@@ -38,5 +38,24 @@ namespace Ambev.DeveloperEvaluation.Domain.Repositories
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>True if the product was deleted, false if not found</returns>
         Task<bool> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Retrieves a paginated list of products from the data source asynchronously.
+        /// </summary>
+        /// <param name="page">The page number to retrieve, starting from 1.</param>
+        /// <param name="pageSize">The number of products to retrieve per page.</param>
+        /// <param name="cancellationToken">A token to monitor for cancellation requests.</param>
+        /// <returns>
+        /// A task representing the asynchronous operation, containing a collection of products for the specified page.
+        /// </returns>
+        Task<IEnumerable<Product>> GetAllAsync(int page, int pageSize, CancellationToken cancellationToken = default);
+
+        /// <summary>
+        /// Retrieves the total number of products available in the database.
+        /// </summary>
+        /// <returns>
+        /// An asynchronous task that returns the total count of products as an integer.
+        /// </returns>
+        Task<int> GetTotalRecordsAsync();
     }
 }

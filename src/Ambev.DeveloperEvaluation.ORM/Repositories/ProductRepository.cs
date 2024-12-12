@@ -89,5 +89,16 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
                 .Take(pageSize)
                 .ToListAsync(cancellationToken);
         }
+
+        /// <summary>
+        /// Retrieves the total number of products available in the database.
+        /// </summary>
+        /// <returns>
+        /// An asynchronous task that returns the total count of products as an integer.
+        /// </returns>
+        public async Task<int> GetTotalRecordsAsync()
+        {
+            return await _context.Products.CountAsync();
+        }
     }
 }

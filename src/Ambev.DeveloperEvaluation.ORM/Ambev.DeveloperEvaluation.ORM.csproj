@@ -22,6 +22,7 @@
 		<ProjectReference Include="..\Ambev.DeveloperEvaluation.Domain\Ambev.DeveloperEvaluation.Domain.csproj" />
 	</ItemGroup>
 	<ItemGroup>
+	  <Folder Include="Repositories\NewFolder\" />
 	  <Folder Include="Seeds\" />
 	</ItemGroup>
 	<ItemGroup>

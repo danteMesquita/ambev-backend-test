@@ -44,7 +44,8 @@ namespace Ambev.DeveloperEvaluation.Application.Customers.CreateCustomer
             return new CreateCustomerResult
             {
                 Id = createdCustomer.Id,
-                Name = createdCustomer.Name
+                Name = createdCustomer.Name,
+                CreatedAt = createdCustomer.CreatedAt,
             };
         }
     }

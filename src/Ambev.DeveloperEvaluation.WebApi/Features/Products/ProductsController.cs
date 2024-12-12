@@ -1,10 +1,12 @@
 ﻿using Ambev.DeveloperEvaluation.Application.Products.CreateProduct;
 using Ambev.DeveloperEvaluation.Application.Products.DeleteProduct;
 using Ambev.DeveloperEvaluation.Application.Products.GetProduct;
+using Ambev.DeveloperEvaluation.Application.Products.GetProductPaged;
 using Ambev.DeveloperEvaluation.WebApi.Common;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.CreateProduct;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.DeleteProduct;
 using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProduct;
+using Ambev.DeveloperEvaluation.WebApi.Features.Products.GetProductPaged;
 using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -114,6 +116,26 @@ namespace Ambev.DeveloperEvaluation.WebApi.Features.Products
                 Success = true,
                 Message = "Product deleted successfully"
             });
+        }
+
+        /// <summary>
+        /// Retrieves a paged list of products.
+        /// </summary>
+        /// <param name="pagedRequest">The paged base request.</param>
+        /// <param name="cancellationToken">Cancellation token.</param>
+        /// <returns>The products with pagonation properties.</returns>
+        [HttpGet("getPaged")]
+        [ProducesResponseType(typeof(ApiResponseWithData<GetProductResponse>), StatusCodes.Status200OK)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetPagedProducts([FromQuery] PagedRequest pagedRequest, CancellationToken cancellationToken)
+        {
+            var validationResult = await new GetProductPagedRequestValidator().ValidateAsync(pagedRequest, cancellationToken);
+            if (!validationResult.IsValid) return BadRequest(validationResult.Errors);
+
+            var dto = pagedRequest.ToDTO();
+            var command = _mapper.Map<GetProductPagedCommand>(dto);
+            return Ok(await _mediator.Send(command, cancellationToken));
         }
     }
 }

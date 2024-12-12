@@ -14,5 +14,10 @@
         /// Gets or sets the name of the created customer.
         /// </summary>
         public string Name { get; set; } = string.Empty;
+
+        /// <summary>
+        /// Gets the date and time when the customer was created.
+        /// </summary>
+        public DateTime CreatedAt { get; set; }
     }
 }

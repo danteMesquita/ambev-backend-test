@@ -76,18 +76,13 @@ namespace Ambev.DeveloperEvaluation.ORM.Repositories
         }
 
         /// <summary>
-        /// Retrieves all customers with optional filtering and pagination
+        /// Retrieves all customers
         /// </summary>
-        /// <param name="page">The page number (1-based)</param>
-        /// <param name="pageSize">The number of items per page</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>A list of customers for the specified page</returns>
-        public async Task<IEnumerable<Customer>> GetAllAsync(int page, int pageSize, CancellationToken cancellationToken = default)
+        /// <param name="cancellationToken"></param>
+        /// <returns>all customers</returns>
+        public async Task<IEnumerable<Customer>> GetAllAsync(CancellationToken cancellationToken = default)
         {
-            return await _context.Customers
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync(cancellationToken);
+            return await _context.Customers.ToListAsync(cancellationToken);
         }
     }
 }
